@@ -1,0 +1,39 @@
+
+mediawiki:
+  image: chiefy/tdswiki:1.27.1
+  restart: always
+  volumes:
+    - "/data/wiki/LocalSettings.php:/var/www/mediawiki/LocalSettings.php"
+    - "/data/wiki/images:/var/www/mediawiki/images"
+  links:
+    - db
+
+nginx:
+  image: chiefy/alpine-nginx:1.10.1
+  restart: always
+  ports:
+    - "80:80"
+  links:
+    - mediawiki
+  volumes_from:
+    - mediawiki
+  volumes:
+    - "/data/wiki/etc/nginx.conf:/etc/nginx.conf"
+
+db:
+  image: mysql:latest
+  restart: always
+  volumes:
+    - "./data/wiki/backup/backup-latest.sql.gz:/docker-entrypoint-initdb.d/mediawiki.sql.gz"
+
+s3:
+  image: amsdard/s3-sync
+  restart: always
+  volumes:
+    - "/data/wiki:/data"
+  environment:
+    - S3_PATH=s3://tds-wiki/
+    - DATA_PATH=/data/
+    - ACCESS_KEY=
+    - SECRET_KEY=
+
