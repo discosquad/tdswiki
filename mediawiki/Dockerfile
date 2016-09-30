@@ -20,3 +20,5 @@ RUN \
 		bash
 
 USER www
+
+COPY LocalSettings.php /var/www/mediawiki
