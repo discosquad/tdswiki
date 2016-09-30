@@ -1,15 +1,21 @@
 
 mediawiki:
-  image: chiefy/tdswiki:1.27.1
+  image: discosquad/tdsmediawiki
   restart: always
+  environment:
+    - WIKI_URL=
+    - WIKI_DB_NAME=
+    - WIKI_DB_USER=
+    - WIKI_DB_PASSWORD=
+    - WIKI_SECRET_KEY=
+    - WIKI_UPGRADE_KEY=
   volumes:
-    - "/data/wiki/LocalSettings.php:/var/www/mediawiki/LocalSettings.php"
     - "/data/wiki/images:/var/www/mediawiki/images"
   links:
     - db
 
 nginx:
-  image: chiefy/alpine-nginx:1.10.1
+  image: discosquad/tdsnginx
   restart: always
   ports:
     - "80:80"
@@ -17,14 +23,16 @@ nginx:
     - mediawiki
   volumes_from:
     - mediawiki
-  volumes:
-    - "/data/wiki/etc/nginx.conf:/etc/nginx.conf"
 
 db:
   image: mysql:latest
+  environment:
+    - MYSQL_ROOT_PASSWORD=
+  entrypoint: /bin/bash
+  command: -c "while [ ! -f /docker-entrypoint-initdb.d/mediawiki.sql.gz ]; do echo 'Waiting for database import...'; sleep 1; done && /entrypoint.sh mysqld"
   restart: always
   volumes:
-    - "./data/wiki/backup/backup-latest.sql.gz:/docker-entrypoint-initdb.d/mediawiki.sql.gz"
+    - "/data/backup:/docker-entrypoint-initdb.d"
 
 s3:
   image: amsdard/s3-sync

@@ -18,3 +18,5 @@ RUN \
 	&& rm -rf /tmp/install_extensions.sh \
 	&& apk del \
 		bash
+
+USER www
