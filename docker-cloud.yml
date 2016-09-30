@@ -1,21 +1,22 @@
-
 mediawiki:
-  image: discosquad/tdsmediawiki
+  image: chiefy/tdsmediawiki
   restart: always
+  autoredeploy: true
   environment:
-    - WIKI_URL=
-    - WIKI_DB_NAME=
-    - WIKI_DB_USER=
-    - WIKI_DB_PASSWORD=
-    - WIKI_SECRET_KEY=
-    - WIKI_UPGRADE_KEY=
-  volumes:
-    - "/data/wiki/images:/var/www/mediawiki/images"
+    - WIKI_URL=""
+    - WIKI_DB_NAME=""
+    - WIKI_DB_USER=""
+    - WIKI_DB_PASSWORD=""
+    - WIKI_SECRET_KEY=""
+    - WIKI_UPGRADE_KEY=""
+  volumes_from:
+    - s3
   links:
     - db
 
-nginx:
-  image: discosquad/tdsnginx
+www:
+  image: chiefy/tdsnginx
+  autoredeploy: true
   restart: always
   ports:
     - "80:80"
@@ -27,21 +28,20 @@ nginx:
 db:
   image: mysql:latest
   environment:
-    - MYSQL_ROOT_PASSWORD=
+    - MYSQL_ROOT_PASSWORD=""
   entrypoint: /bin/bash
-  command: -c "while [ ! -f /docker-entrypoint-initdb.d/mediawiki.sql.gz ]; do echo 'Waiting for database import...'; sleep 1; done && /entrypoint.sh mysqld"
+  command: -c "while [ ! -f /var/import/backup/mediawiki.sql.gz ]; do echo 'Waiting for database import...'; sleep 1; done && cp /var/import/backup/mediawiki.sql.gz /docker-entrypoint-initdb.d/ && /entrypoint.sh mysqld"
   restart: always
-  volumes:
-    - "/data/backup:/docker-entrypoint-initdb.d"
+  volumes_from:
+    - s3
 
 s3:
   image: amsdard/s3-sync
   restart: always
   volumes:
-    - "/data/wiki:/data"
+    - /var/import
   environment:
     - S3_PATH=s3://tds-wiki/
-    - DATA_PATH=/data/
-    - ACCESS_KEY=
-    - SECRET_KEY=
-
+    - DATA_PATH=/var/import/
+    - ACCESS_KEY=""
+    - SECRET_KEY=""
