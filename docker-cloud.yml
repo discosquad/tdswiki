@@ -11,6 +11,8 @@ mediawiki:
     - WIKI_UPGRADE_KEY=""
   volumes_from:
     - s3
+  volumes:
+    - /var/www/mediawiki
   links:
     - db
 

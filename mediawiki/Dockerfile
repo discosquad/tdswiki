@@ -1,4 +1,4 @@
-FROM quay.io/chiefy/alpine-php-mediawiki:1.27.1
+FROM quay.io/chiefy/alpine-php-mediawiki:v1.27.1
 
 MAINTAINER Christopher 'Chief' Najewicz <chief@beefdisciple.com>
 
