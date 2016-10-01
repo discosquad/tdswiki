@@ -14,8 +14,10 @@ RUN \
 		bash \
 		openssl \
 		ca-certificates \
-	&& su -s /bin/ash -c "/tmp/install_extensions.sh" www \
-	&& rm -rf /tmp/install_extensions.sh
+	&& su -s /bin/bash -c "/tmp/install_extensions.sh" www \
+	&& rm -rf /tmp/install_extensions.sh \
+	&& mkdir -p /var/import \
+	&& chown www /var/import
 
 USER www
 
@@ -23,6 +25,9 @@ COPY LocalSettings.php /var/www/mediawiki
 
 VOLUME /var/www/mediawiki
 
-ENTRYPOINT /bin/bash
+ENTRYPOINT [ "/bin/bash" ]
 
-CMD -c "while [ ! -d /var/import/images ]; do echo 'Waiting for images to copy...'; sleep 1; done && cp -R /var/import/images /var/www/mediawiki/images && php-fpm -F"
+CMD [ \
+	"-c", \
+	"while [ ! -d /var/import/images ]; do echo 'Waiting for images to copy...'; sleep 1; done && cp -R /var/import/images /var/www/mediawiki/images && php-fpm -F" \
+]

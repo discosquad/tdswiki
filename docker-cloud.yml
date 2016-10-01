@@ -41,6 +41,8 @@ s3:
   volumes:
     - /var/import
   environment:
+    - OWNER_UID=100
+    - OWNER_GID=0
     - S3_PATH=s3://tds-wiki/
     - DATA_PATH=/var/import/
     - ACCESS_KEY=""
