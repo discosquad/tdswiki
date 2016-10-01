@@ -4,8 +4,6 @@ MAINTAINER Christopher 'Chief' Najewicz <chief@beefdisciple.com>
 
 ENV EXT_DIR=/var/www/mediawiki/extensions
 
-COPY install_extensions.sh /tmp
-
 USER root
 
 RUN \
@@ -14,12 +12,16 @@ RUN \
 		bash \
 		openssl \
 		ca-certificates \
-	&& su -s /bin/ash -c "/tmp/install_extensions.sh" www \
-	&& rm -rf /tmp/install_extensions.sh \
 	&& mkdir -p /var/import \
 	&& chown www /var/import
 
 USER www
+
+COPY install_extensions.sh /var/www/mediawiki
+
+RUN \
+	/var/www/mediawiki/install_extensions.sh \
+	&& rm -rf /var/www/mediawiki/install_extensions.sh
 
 COPY LocalSettings.php /var/www/mediawiki
 
