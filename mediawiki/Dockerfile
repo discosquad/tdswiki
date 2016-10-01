@@ -29,5 +29,5 @@ ENTRYPOINT [ "/bin/bash" ]
 
 CMD [ \
 	"-c", \
-	"while [ ! -d /var/import/images ]; do echo 'Waiting for images to copy...'; sleep 1; done && cp -R /var/import/images /var/www/mediawiki && php-fpm -F" \
+	"while [ ! -d /var/import/images ]; do echo 'Waiting for images to copy...'; sleep 1; done && cp -R /var/import/images /var/www/mediawiki/ && php-fpm -F" \
 ]
