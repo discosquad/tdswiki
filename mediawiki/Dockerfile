@@ -14,7 +14,7 @@ RUN \
 		bash \
 		openssl \
 		ca-certificates \
-	&& su -s /bin/bash -c "/tmp/install_extensions.sh" www \
+	&& su -s /bin/ash -c "/tmp/install_extensions.sh" www \
 	&& rm -rf /tmp/install_extensions.sh \
 	&& mkdir -p /var/import \
 	&& chown www /var/import

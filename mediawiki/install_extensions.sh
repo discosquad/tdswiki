@@ -18,3 +18,5 @@ for ext_url in ${extensions[@]}; do
 	echo "Done downloading ${ext_url}"
 	echo
 done
+
+ls -lah ${EXT_DIR}
