@@ -23,6 +23,6 @@ COPY LocalSettings.php /var/www/mediawiki
 
 VOLUME /var/www/mediawiki
 
-ENTRYPOINT /bin/ash
+ENTRYPOINT /bin/bash
 
 CMD -c "while [ ! -d /var/import/images ]; do echo 'Waiting for images to copy...'; sleep 1; done && cp -R /var/import/images /var/www/mediawiki/images && php-fpm -F"
