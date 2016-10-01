@@ -13,19 +13,16 @@ RUN \
 		openssl \
 		ca-certificates \
 	&& mkdir -p /var/import \
-	&& chown www /var/import
+	&& chown -R www /var/import
 
 USER www
 
 COPY install_extensions.sh /var/www/mediawiki
+COPY LocalSettings.php /var/www/mediawiki
 
 RUN \
 	/var/www/mediawiki/install_extensions.sh \
 	&& rm -rf /var/www/mediawiki/install_extensions.sh
-
-COPY LocalSettings.php /var/www/mediawiki
-
-VOLUME /var/www/mediawiki
 
 ENTRYPOINT [ "/bin/bash" ]
 
