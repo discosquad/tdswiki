@@ -15,7 +15,7 @@ RUN \
 		openssl \
 		ca-certificates \
 	&& su -s /bin/ash -c "/tmp/install_extensions.sh" www \
-	rm -rf /tmp/install_extensions.sh \
+	rm -rf /tmp/install_extensions.sh
 
 USER www
 
