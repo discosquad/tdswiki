@@ -1,4 +1,4 @@
-FROM quay.io/chiefy/alpine-php-mediawiki:v1.27.1
+FROM quay.io/chiefy/alpine-php-mediawiki:1.27.1
 
 MAINTAINER Christopher 'Chief' Najewicz <chief@beefdisciple.com>
 
@@ -28,5 +28,5 @@ ENTRYPOINT [ "/bin/bash" ]
 
 CMD [ \
 	"-c", \
-	"while [ ! -d /var/import/images ]; do echo 'Waiting for images to copy...'; sleep 1; done && cp -R /var/import/images /var/www/mediawiki/ && php-fpm -F" \
+	"while [ ! -d /var/www/mediawiki/images/thumb ]; do echo 'Waiting for images to copy...'; sleep 1; done && php-fpm -F" \
 ]
