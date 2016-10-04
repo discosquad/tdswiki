@@ -128,6 +128,8 @@ wfLoadSkin( 'Vector' );
 # Add more configuration options below.
 $wgMaxShellMemory = 512000;
 
+$wgDebugLogFile = "/var/log/mediawiki.log";
+
 require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
 $wgMFAutodetectMobileView = true;
 

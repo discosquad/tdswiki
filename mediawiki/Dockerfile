@@ -12,8 +12,8 @@ RUN \
 		bash \
 		openssl \
 		ca-certificates \
-	&& mkdir -p /var/import \
-	&& chown -R www /var/import
+	&& touch /var/log/mediawiki.log \
+	&& chown www /var/log/mediawiki.log
 
 USER www
 
