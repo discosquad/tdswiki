@@ -8,7 +8,7 @@ ENV \
 
 USER root
 
-COPY etc/crontab /etc/crontabs/root
+COPY etc/crontab /etc/crontabs/www
 
 RUN \
     apk update \
