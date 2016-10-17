@@ -18,7 +18,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
 
-$wgSitename = "TDSWiki";
+$wgSitename = getenv("WIKI_NAME");
 $wgMetaNamespace = "tds";
 
 ## The URL base path to the directory containing the wiki;
@@ -27,6 +27,8 @@ $wgMetaNamespace = "tds";
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
 $wgScriptPath = "";
+
+$wgUsePathInfo = true;
 
 ## The protocol and server name to use in fully-qualified URLs
 $wgServer = getenv("WIKI_URL");
@@ -123,6 +125,8 @@ wfLoadSkin( 'Modern' );
 wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
 
+$wgRunJobsAsync = true;
+$wgJobRunRate = 1;
 
 # End of automatically generated settings.
 # Add more configuration options below.
@@ -134,11 +138,26 @@ require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
 $wgMFAutodetectMobileView = true;
 
 require_once "$IP/extensions/RandomImage/RandomImage.php";
+$wgRandomImageNoCache = true;
 
 require_once "$IP/extensions/MultimediaViewer/MultimediaViewer.php";
 
 require_once "$IP/extensions/YouTube/YouTube.php";
 
-require_once "$IP/extensions/VisualEditor/VisualEditor.php";
+require_once "$IP/extensions/ParserFunctions/ParserFunctions.php";
+$wgPFEnableStringFunctions = true;
 
 require_once "$IP/extensions/ImageTagging/ImageTagging.php";
+
+require_once "$IP/extensions/CategoryTree/CategoryTree.php";
+
+require_once "$IP/extensions/MsUpload/MsUpload.php";
+
+$GLOBALS['egMapsDefaultService'] = 'openlayers';
+
+require_once "$IP/extensions/SlackNotifications/SlackNotifications.php";
+$wgSlackIncomingWebhookUrl = getenv("SLACK_WEBHOOK_URL");
+$wgSlackFromName = getenv("WIKI_NAME");
+$wgWikiUrl = getenv("WIKI_URL") . '/';
+$wgWikiUrlEnding = "index.php/";
+$wgSlackSendMethod = "curl";

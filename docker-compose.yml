@@ -1,0 +1,66 @@
+version: '2'
+
+services:
+
+  db:
+    env_file: ./common.env
+    command: >-
+      -c "while [ ! -f /docker-entrypoint-initdb.d/latest.sql.gz ]; do
+      echo 'Waiting for database bootstrap...'; sleep 1; done &&
+      docker-entrypoint.sh mysqld"
+    entrypoint: /bin/bash
+    image: 'mysql:latest'
+    restart: always
+    volumes_from:
+      - dbrestore
+
+#  dbbackup:
+#    env_file: ./common.env
+#    image: 'schickling/mysql-backup-s3:latest'
+#    links:
+#      - db
+#    restart: always
+
+  dbrestore:
+    env_file: ./common.env
+    command: >-
+      cp s3://tds-wiki/backup/latest.sql.gz docker-entrypoint-initdb.d/latest.sql.gz
+    image: 'quay.io/chiefy/alpine-s3:1.0.1'
+    volumes:
+      - /docker-entrypoint-initdb.d
+
+  mediawiki:
+    entrypoint: ""
+    env_file: ./common.env
+    build: ./mediawiki
+    image: 'chiefy/tdsmediawiki:latest'
+    links:
+      - db
+    restart: always
+    volumes:
+      - /var/www/mediawiki
+      - ./mediawiki/etc/LocalSettings.php:/var/www/mediawiki/LocalSettings.php
+      - ./mediawiki/skins/components:/var/www/mediawiki/skins/Vector/components
+    volumes_from:
+      - s3images
+
+  s3images:
+    env_file: ./common.env
+    image: amsdard/s3-sync:latest
+    volumes:
+      - ./images:/var/www/mediawiki/images
+
+  www:
+    env_file: ./common.env
+    build: ./nginx
+    image: chiefy/tdsnginx:latest
+    links:
+      - mediawiki
+    ports:
+      - "80:80"
+    restart: always
+    volumes_from:
+      - mediawiki
+      - s3images
+    volumes:
+      - ./nginx/etc/nginx.conf:/etc/nginx/conf/nginx.conf

@@ -2,31 +2,34 @@ FROM quay.io/chiefy/alpine-php-mediawiki:1.27.1
 
 MAINTAINER Christopher 'Chief' Najewicz <chief@beefdisciple.com>
 
-ENV EXT_DIR=/var/www/mediawiki/extensions
+ENV \
+    EXT_DIR=/var/www/mediawiki/extensions\
+    PHP_FPM_PORT=9000
 
 USER root
 
 RUN \
-	apk update \
-	&& apk add \
-		bash \
-		openssl \
-		ca-certificates \
-	&& touch /var/log/mediawiki.log \
-	&& chown www /var/log/mediawiki.log
+    apk update \
+    && apk add \
+        bash \
+        curl \
+        openssl \
+        ca-certificates \
+    && touch /var/log/mediawiki.log \
+    && chown www /var/log/mediawiki.log \
+    # Install Maps extension w/ composer
+    && composer require -d /var/www/mediawiki -vv -n mediawiki/maps "*" \
+    && chown -R www:nogroup ${EXT_DIR}
 
 USER www
 
-COPY install_extensions.sh /var/www/mediawiki
-COPY LocalSettings.php /var/www/mediawiki
+COPY bin/install_extensions.sh /var/www/mediawiki
+COPY etc/LocalSettings.php /var/www/mediawiki
+COPY bin/manage.sh /usr/local/bin/manage.sh
+COPY skins/components /var/www/mediawiki/skins/Vector/
 
 RUN \
-	/var/www/mediawiki/install_extensions.sh \
-	&& rm -rf /var/www/mediawiki/install_extensions.sh
+    /var/www/mediawiki/install_extensions.sh \
+    && rm -rf /var/www/mediawiki/install_extensions.sh
 
-ENTRYPOINT [ "/bin/bash" ]
-
-CMD [ \
-	"-c", \
-	"while [ ! -d /var/www/mediawiki/images/thumb ]; do echo 'Waiting for images to copy...'; sleep 1; done && php-fpm -F" \
-]
+CMD [ "/usr/local/bin/manage.sh", "preStart" ]
