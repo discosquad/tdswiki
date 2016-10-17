@@ -26,10 +26,13 @@ USER www
 COPY bin/install_extensions.sh /var/www/mediawiki
 COPY etc/LocalSettings.php /var/www/mediawiki
 COPY bin/manage.sh /usr/local/bin/manage.sh
-COPY skins/components /var/www/mediawiki/skins/Vector/
+COPY skins/components/common.less /var/www/mediawiki/skins/Vector/components/common.less
 
 RUN \
     /var/www/mediawiki/install_extensions.sh \
     && rm -rf /var/www/mediawiki/install_extensions.sh
 
-CMD [ "/usr/local/bin/manage.sh", "preStart" ]
+
+ENTRYPOINT [ "/usr/local/bin/manage.sh" ]
+
+CMD [ "preStart" ]
