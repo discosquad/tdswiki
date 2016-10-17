@@ -79,7 +79,7 @@ $wgEnableUploads = true;
 #$wgImageMagickConvertCommand = "/usr/bin/convert";
 
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
-$wgUseInstantCommons = true;
+$wgUseInstantCommons = false;
 
 ## If you use ImageMagick (or any other shell command) on a
 ## Linux server, this will need to be set to the name of an
@@ -120,12 +120,12 @@ $wgDefaultSkin = "vector";
 
 # Enabled skins.
 # The following skins were automatically enabled:
-wfLoadSkin( 'CologneBlue' );
-wfLoadSkin( 'Modern' );
-wfLoadSkin( 'MonoBook' );
+#wfLoadSkin( 'CologneBlue' );
+#wfLoadSkin( 'Modern' );
+#wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
 
-$wgRunJobsAsync = true;
+$wgRunJobsAsync = false;
 $wgJobRunRate = 1;
 
 # End of automatically generated settings.
@@ -161,3 +161,13 @@ $wgSlackFromName = getenv("WIKI_NAME");
 $wgWikiUrl = getenv("WIKI_URL") . '/';
 $wgWikiUrlEnding = "index.php/";
 $wgSlackSendMethod = "curl";
+$wgSlackIncludeUserUrls = true;
+$wgSlackIgnoreMinorEdits = true;
+$wgSlackEmoji = "ledger";
+$wgSlackIncludeDiffSize = false;
+$wgSlackNotificationEditedArticle = true;
+$wgSlackNotificationFileUpload = false;
+$wgSlackNotificationMovedArticle = false;
+$wgSlackNotificationRemovedArticle = false;
+$wgSlackNotificationNewUser = false;
+
