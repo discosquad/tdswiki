@@ -1,8 +1,8 @@
 #!/bin/bash
 
 start() {
-    echo "Starting PHP-fpm..."
-    php-fpm -F
+    echo "Setting up crond, starting php-fpm..."
+    crond && php-fpm -F
 }
 
 preStart() {

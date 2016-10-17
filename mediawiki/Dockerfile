@@ -8,6 +8,8 @@ ENV \
 
 USER root
 
+COPY etc/crontab /etc/crontabs/root
+
 RUN \
     apk update \
     && apk add \

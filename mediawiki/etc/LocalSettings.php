@@ -125,14 +125,15 @@ $wgDefaultSkin = "vector";
 #wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
 
+# Handle this via crond
 $wgRunJobsAsync = false;
-$wgJobRunRate = 1;
+$wgJobRunRate = 0;
 
 # End of automatically generated settings.
 # Add more configuration options below.
 $wgMaxShellMemory = 512000;
 
-$wgDebugLogFile = "/var/log/mediawiki.log";
+#$wgDebugLogFile = "/var/log/mediawiki.log";
 
 require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
 $wgMFAutodetectMobileView = true;
