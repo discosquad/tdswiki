@@ -2,14 +2,16 @@
 
 start() {
     echo "Setting up crond, starting php-fpm..."
-    crond -d 3 && php-fpm -F
+    crond -d 3
+    php-fpm -F
 }
 
 preStart() {
     while [ ! -d /var/www/mediawiki/images/thumb ]; do
         echo "Waiting for images to copy..."
         sleep 1
-    done && start
+    done
+    start
 }
 
 until

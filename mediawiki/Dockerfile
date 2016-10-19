@@ -8,7 +8,7 @@ ENV \
 
 USER root
 
-COPY etc/crontab /etc/crontabs/www
+COPY etc/crontab /etc/crontabs/root
 
 RUN \
     apk update \
@@ -20,7 +20,7 @@ RUN \
     && touch /var/log/mediawiki.log \
     && chown www /var/log/mediawiki.log \
     # Install Maps extension w/ composer
-    && composer require -d /var/www/mediawiki -vv -n mediawiki/maps "*" \
+    && composer require -d /var/www/mediawiki -vvv -n mediawiki/maps "*" \
     && chown -R www:nogroup ${EXT_DIR}
 
 USER www
@@ -30,10 +30,10 @@ COPY etc/LocalSettings.php /var/www/mediawiki
 COPY bin/manage.sh /usr/local/bin/manage.sh
 COPY skins/components/common.less /var/www/mediawiki/skins/Vector/components/common.less
 
-RUN \
-    /var/www/mediawiki/install_extensions.sh \
+RUN /var/www/mediawiki/install_extensions.sh \
     && rm -rf /var/www/mediawiki/install_extensions.sh
 
+USER root
 
 ENTRYPOINT [ "/usr/local/bin/manage.sh" ]
 
