@@ -1,4 +1,4 @@
-FROM chiefy/alpine-nginx:1.10.1
+FROM chiefy/alpine-nginx:1.12.2
 
 MAINTAINER Christopher 'Chief' Najewicz <chief@beefdisciple.com>
 
