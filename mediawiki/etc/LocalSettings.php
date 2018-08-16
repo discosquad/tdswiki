@@ -19,6 +19,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 # $wgDisableOutputCompression = true;
 
 $wgSitename = getenv("WIKI_NAME");
+$wgOverrideHostname = "wiki.discosquad.com";
 $wgMetaNamespace = "tds";
 
 ## The URL base path to the directory containing the wiki;
@@ -55,9 +56,9 @@ $wgEmailAuthentication = true;
 ## Database settings
 $wgDBtype = "mysql";
 $wgDBserver = "db";
-$wgDBname = getenv("WIKI_DB_NAME");
-$wgDBuser = getenv("WIKI_DB_USER");
-$wgDBpassword = getenv("WIKI_DB_PASSWORD");
+$wgDBname = getenv("MYSQL_DATABASE");
+$wgDBuser = getenv("MYSQL_USER");
+$wgDBpassword = getenv("MYSQL_PASSWORD");
 
 # MySQL specific settings
 $wgDBprefix = "mw_";
@@ -135,24 +136,22 @@ $wgMaxShellMemory = 512000;
 
 #$wgDebugLogFile = "/var/log/mediawiki.log";
 
-require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
+wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
 
-require_once "$IP/extensions/RandomImage/RandomImage.php";
+wfLoadExtension('RandomImage');
 $wgRandomImageNoCache = true;
 
-require_once "$IP/extensions/MultimediaViewer/MultimediaViewer.php";
+wfLoadExtension('MultimediaViewer');
 
-require_once "$IP/extensions/YouTube/YouTube.php";
+wfLoadExtension('YouTube');
 
-require_once "$IP/extensions/ParserFunctions/ParserFunctions.php";
+wfLoadExtension('ParserFunctions');
 $wgPFEnableStringFunctions = true;
 
-require_once "$IP/extensions/ImageTagging/ImageTagging.php";
+wfLoadExtension('CategoryTree');
 
-require_once "$IP/extensions/CategoryTree/CategoryTree.php";
-
-require_once "$IP/extensions/MsUpload/MsUpload.php";
+wfLoadExtension('MsUpload');
 
 $GLOBALS['egMapsDefaultService'] = 'openlayers';
 

@@ -3,61 +3,68 @@ version: '3.2'
 services:
 
   db:
-    env_file: ./common.env
+    env_file: ./.env
     command: >-
       /bin/bash -c 
-      "while [[ ! -f /docker-entrypoint-initdb.d/latest.sql.gz ]]; do
+      "while [[ ! -f /docker-entrypoint-initdb.d/latest.sql ]]; do
       echo 'Waiting for database bootstrap...'; sleep 5; done &&
-      docker-entrypoint.sh mysqld"
+      /entrypoint.sh mysqld"
     entrypoint: ""
-    image: mysql/mysql-server:latest
+    image: mysql/mysql-server:5.7
     restart: always
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
 #  dbbackup:
-#    env_file: ./common.env
+#    env_file: ./.env
 #    image: 'schickling/mysql-backup-s3:latest'
 #    links:
 #      - db
 #    restart: always
 
   dbrestore:
-    env_file: ./common.env
+    env_file: ./.env
+    image: quay.io/chiefy/alpine-awscli
+    entrypoint: /bin/ash
     command: >-
-      cp s3://tds-wiki/backup/latest.sql.gz 
-      docker-entrypoint-initdb.d/latest.sql.gz
-    image: 'quay.io/chiefy/alpine-s3:1.0.1'
+      -c "aws s3 cp s3://tds-wiki/backup/latest.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz 
+       && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
   mediawiki:
-    env_file: ./common.env
+    env_file: ./.env
     build: ./mediawiki
+    depends_on: 
+      - db
     restart: always
     volumes:
       - "wikiwww:/var/www/mediawiki"
       - ./mediawiki/etc/LocalSettings.php:/var/www/mediawiki/LocalSettings.php
-      - ./mediawiki/skins/components:/var/www/mediawiki/skins/Vector/components
+#      - ./mediawiki/skins/components:/var/www/mediawiki/skins/Vector/components
       - "s3images:/var/www/mediawiki/images"
 
   s3images:
-    env_file: ./common.env
-    image: amsdard/s3-sync:latest
+    env_file: ./.env
+    image: quay.io/chiefy/alpine-awscli
     volumes:
       - "s3images:/var/www/mediawiki/images"
+    command: >-
+      s3 sync s3://${BUCKET}${BUCKET_PATH} /var/www/mediawiki/images
 
   www:
-    env_file: ./common.env
+    env_file: ./.env
     build: ./nginx
+    depends_on:
+      - mediawiki
     ports:
       - "80:80"
       - "443:443"
     restart: always
     volumes:
       - ./nginx/etc/nginx.conf:/etc/nginx/conf/nginx.conf
-      - "wikiwww:/var/www/mediawiki"
-      - "s3images:/var/www/mediawiki/images"
+      - "wikiwww:/var/www/mediawiki:ro"
+      - "s3images:/var/www/mediawiki/images:ro"
 
 volumes:
   wikiwww:
