@@ -1,6 +1,4 @@
-FROM quay.io/chiefy/alpine-php-mediawiki:1.30.0
-
-MAINTAINER Christopher 'Chief' Najewicz <chief@beefdisciple.com>
+FROM quay.io/chiefy/alpine-php-mediawiki:1.31.0
 
 ENV \
     EXT_DIR=/var/www/mediawiki/extensions\
@@ -17,6 +15,9 @@ RUN \
         curl \
         openssl \
         ca-certificates \
+        php-tokenizer \
+        php-simplexml \
+        php-xmlwriter \
     && touch /var/log/mediawiki.log \
     && chown www /var/log/mediawiki.log \
     # Install Maps extension w/ composer

@@ -3,7 +3,7 @@
 : ${EXT_DIR:-extensions}
 
 extensions=(
-	https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_27-717861c.tar.gz
+	https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_31-7f66849.tar.gz 
 	https://extdist.wmflabs.org/dist/extensions/YouTube-REL1_27-555d66a.tar.gz
 	https://extdist.wmflabs.org/dist/extensions/MultimediaViewer-REL1_27-15e42f9.tar.gz
 	https://extdist.wmflabs.org/dist/extensions/RandomImage-REL1_27-9f11fbd.tar.gz
