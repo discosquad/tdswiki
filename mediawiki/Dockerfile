@@ -32,7 +32,8 @@ COPY bin/manage.sh /usr/local/bin/manage.sh
 COPY skins/components/common.less /var/www/mediawiki/skins/Vector/components/common.less
 
 RUN /var/www/mediawiki/install_extensions.sh \
-    && rm -rf /var/www/mediawiki/install_extensions.sh
+    && rm -rf /var/www/mediawiki/install_extensions.sh \
+    && rm -rf /var/www/mediawiki/images/*
 
 USER root
 

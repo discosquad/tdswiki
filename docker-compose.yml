@@ -15,12 +15,10 @@ services:
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
-#  dbbackup:
-#    env_file: ./.env
-#    image: 'schickling/mysql-backup-s3:latest'
-#    links:
-#      - db
-#    restart: always
+  dbbackup:
+    env_file: ./.env
+    image: schickling/mysql-backup-s3:latest
+    restart: always
 
   dbrestore:
     env_file: ./.env
@@ -28,7 +26,7 @@ services:
     entrypoint: /bin/ash
     command: >-
       -c "aws s3 cp s3://tds-wiki/backup/latest.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz 
-       && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"
+      && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
@@ -41,16 +39,14 @@ services:
     volumes:
       - "wikiwww:/var/www/mediawiki"
       - ./mediawiki/etc/LocalSettings.php:/var/www/mediawiki/LocalSettings.php
-#      - ./mediawiki/skins/components:/var/www/mediawiki/skins/Vector/components
       - "s3images:/var/www/mediawiki/images"
 
-  s3images:
+  s3sync:
     env_file: ./.env
-    image: quay.io/chiefy/alpine-awscli
+    image: vladgh/s3sync
     volumes:
       - "s3images:/var/www/mediawiki/images"
-    command: >-
-      s3 sync s3://${BUCKET}${BUCKET_PATH} /var/www/mediawiki/images
+    command: sync
 
   www:
     env_file: ./.env
