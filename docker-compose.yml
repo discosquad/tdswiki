@@ -43,8 +43,7 @@ services:
 
   s3sync:
     env_file: ./.env
-    image: vladgh/s3sync
-    user: www
+    build: ./s3sync
     volumes:
       - "s3images:/var/www/mediawiki/images"
     command: sync
