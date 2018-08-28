@@ -9,7 +9,6 @@ extensions=(
 	https://extdist.wmflabs.org/dist/extensions/YouTube-REL1_31-f6252db.tar.gz  
 	https://extdist.wmflabs.org/dist/extensions/MultimediaViewer-REL1_31-1273d3e.tar.gz
 	https://extdist.wmflabs.org/dist/extensions/RandomImage-REL1_31-a1b5400.tar.gz 
-#	https://extdist.wmflabs.org/dist/extensions/ImageTagging-REL1_29-599519c.tar.gz
 	https://extdist.wmflabs.org/dist/extensions/CategoryTree-REL1_31-c24e5ed.tar.gz
 	https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_31-7ec426b.tar.gz
 	https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_31-2e2efd5.tar.gz

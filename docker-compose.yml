@@ -39,7 +39,6 @@ services:
     restart: always
     volumes:
       - "wikiwww:/var/www/mediawiki"
-      - ./mediawiki/etc/LocalSettings.php:/var/www/mediawiki/LocalSettings.php
       - "s3images:/var/www/mediawiki/images"
 
   s3sync:
@@ -48,7 +47,7 @@ services:
     restart: always
     volumes:
       - "s3images:/var/www/mediawiki/images"
-    command: periodic_download
+    command: periodic_upload
 
   www:
     env_file: ./.env
@@ -122,7 +121,6 @@ services:
     environment:
       NGINX_DOCKER_GEN_CONTAINER: ${DOCKER_GEN:-nginx-gen}
       NGINX_PROXY_CONTAINER: ${NGINX_WEB:-nginx-web}
-      ACME_CA_URI: https://acme-staging.api.letsencrypt.org/directory
     logging:
       options:
         max-size: ${NGINX_LETSENCRYPT_LOG_MAX_SIZE:-2m}

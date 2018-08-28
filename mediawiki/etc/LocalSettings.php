@@ -138,6 +138,7 @@ $wgMaxShellMemory = 512000;
 
 wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
+$wgMFDefaultSkinClass = 'SkinVector';
 
 wfLoadExtension('RandomImage');
 $wgRandomImageNoCache = true;
