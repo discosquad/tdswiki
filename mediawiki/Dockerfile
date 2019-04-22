@@ -1,4 +1,4 @@
-FROM quay.io/chiefy/alpine-php-mediawiki:1.31.0
+FROM quay.io/chiefy/alpine-php-mediawiki:v1.32.0
 
 ENV \
     EXT_DIR=/var/www/mediawiki/extensions\
@@ -11,13 +11,13 @@ COPY etc/crontab /etc/crontabs/root
 RUN \
     apk update \
     && apk add \
-        bash \
-        curl \
-        openssl \
-        ca-certificates \
-        php-tokenizer \
-        php-simplexml \
-        php-xmlwriter \
+    bash \
+    curl \
+    openssl \
+    ca-certificates \
+    php-tokenizer \
+    php-simplexml \
+    php-xmlwriter \
     && touch /var/log/mediawiki.log \
     && chown www /var/log/mediawiki.log \
     # Install Maps extension w/ composer
