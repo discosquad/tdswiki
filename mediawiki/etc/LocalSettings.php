@@ -156,19 +156,3 @@ wfLoadExtension('MsUpload');
 
 $GLOBALS['egMapsDefaultService'] = 'openlayers';
 
-require_once "$IP/extensions/SlackNotifications/SlackNotifications.php";
-$wgSlackIncomingWebhookUrl = getenv("SLACK_WEBHOOK_URL");
-$wgSlackFromName = getenv("WIKI_NAME");
-$wgWikiUrl = getenv("WIKI_URL") . '/';
-$wgWikiUrlEnding = "index.php/";
-$wgSlackSendMethod = "curl";
-$wgSlackIncludeUserUrls = true;
-$wgSlackIgnoreMinorEdits = true;
-$wgSlackEmoji = "ledger";
-$wgSlackIncludeDiffSize = false;
-$wgSlackNotificationEditedArticle = true;
-$wgSlackNotificationFileUpload = false;
-$wgSlackNotificationMovedArticle = false;
-$wgSlackNotificationRemovedArticle = false;
-$wgSlackNotificationNewUser = false;
-
