@@ -10,7 +10,7 @@ services:
       echo 'Waiting for database bootstrap...'; sleep 5; done &&
       /docker-entrypoint.sh mysqld"
     entrypoint: ""
-    image: mariadb:latest
+    image: mysql:latest
     restart: always
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"

@@ -55,7 +55,7 @@ $wgEmailAuthentication = true;
 
 ## Database settings
 $wgDBtype = "mysql";
-$wgDBserver = "db";
+$wgDBserver = getenv("MYSQL_HOST");
 $wgDBname = getenv("MYSQL_DATABASE");
 $wgDBuser = getenv("MYSQL_USER");
 $wgDBpassword = getenv("MYSQL_PASSWORD");
@@ -155,4 +155,3 @@ wfLoadExtension('CategoryTree');
 wfLoadExtension('MsUpload');
 
 $GLOBALS['egMapsDefaultService'] = 'openlayers';
-
