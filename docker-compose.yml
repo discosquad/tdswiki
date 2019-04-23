@@ -8,7 +8,7 @@ services:
       /bin/bash -c 
       "while [[ ! -f /docker-entrypoint-initdb.d/latest.sql ]]; do
       echo 'Waiting for database bootstrap...'; sleep 5; done &&
-      /docker-entrypoint.sh mysqld"
+      /entrypoint.sh mysqld"
     entrypoint: ""
     image: mysql:latest
     restart: always
