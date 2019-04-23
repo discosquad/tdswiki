@@ -9,9 +9,9 @@ extensions=(
   https://extdist.wmflabs.org/dist/extensions/YouTube-REL1_31-f6252db.tar.gz
   https://extdist.wmflabs.org/dist/extensions/MultimediaViewer-REL1_31-1273d3e.tar.gz
   https://extdist.wmflabs.org/dist/extensions/RandomImage-REL1_31-a1b5400.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/CategoryTree-master-ece3dc2.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/ParserFunctions-master-4395442.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/MsUpload-master-899c6ad.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/CategoryTree-REL1_32-5866bb9.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_32-15fe1aa.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_32-0779791.tar.gz
 )
 
 for ext_url in ${extensions[@]}; do
