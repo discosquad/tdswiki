@@ -1,4 +1,4 @@
-FROM nginx:1.15.2-alpine
+FROM nginx:stable-alpine
 
 RUN \
 	apk update \

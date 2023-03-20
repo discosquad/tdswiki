@@ -1,4 +1,4 @@
-FROM quay.io/chiefy/alpine-php-mediawiki:v1.32.0
+FROM ghcr.io/chiefy/alpine-mediawiki:latest
 
 ENV \
     EXT_DIR=/var/www/mediawiki/extensions\
@@ -17,6 +17,7 @@ RUN \
     ca-certificates \
     php-tokenizer \
     php-simplexml \
+    php-calendar \
     php-xmlwriter \
     && touch /var/log/mediawiki.log \
     && chown www /var/log/mediawiki.log \

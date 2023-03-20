@@ -2,3 +2,4 @@ images
 common.env
 .env
 data
+s3images

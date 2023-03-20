@@ -19,7 +19,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 # $wgDisableOutputCompression = true;
 
 $wgSitename = getenv("WIKI_NAME");
-$wgOverrideHostname = "wiki.discosquad.com";
+$wgOverrideHostname = getenv("WIKI_HOST");
 $wgMetaNamespace = "tds";
 
 ## The URL base path to the directory containing the wiki;
