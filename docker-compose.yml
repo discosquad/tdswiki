@@ -65,7 +65,7 @@ services:
     depends_on:
       - mediawiki
     ports:
-      - "8080:80"
+      - "8888:80"
     restart: always
     volumes:
       - ./nginx/etc/nginx.conf:/etc/nginx/conf/nginx.conf
