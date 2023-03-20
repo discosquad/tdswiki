@@ -54,7 +54,7 @@ services:
       - type: volume
         source: s3images
         target: /var/www/mediawiki/images
-    command: download
+    command: periodic_upload
 
   www:
     env_file: ${CONFIG_ENV:-"./.env"}
