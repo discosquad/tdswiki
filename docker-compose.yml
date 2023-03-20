@@ -3,7 +3,7 @@ version: '3.2'
 services:
 
   db:
-    env_file: ./.env
+    env_file: ${CONFIG_ENV:-"./.env"}
     container_name: mediawiki-db
     command: >-
       /bin/bash -c 
@@ -17,12 +17,12 @@ services:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
   dbbackup:
-     env_file: ./.env
-     image: schickling/mysql-backup-s3:latest
-     restart: always
+    env_file: ${CONFIG_ENV:-"./.env"}
+    image: schickling/mysql-backup-s3:latest
+    restart: always
 
   dbrestore:
-    env_file: ./.env
+    env_file: ${CONFIG_ENV:-"./.env"}
     image: quay.io/chiefy/alpine-awscli
     entrypoint: /bin/ash
     command: >-
@@ -32,7 +32,7 @@ services:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
   mediawiki:
-    env_file: ./.env
+    env_file: ${CONFIG_ENV:-"./.env"}
     build: ./mediawiki
     container_name: mediawiki-php
     depends_on: 
@@ -45,7 +45,7 @@ services:
         target: /var/www/mediawiki/images
 
   s3sync:
-    env_file: ./.env
+    env_file: ${CONFIG_ENV:-"./.env"}
     build: ./s3sync
     restart: always
     environment:
@@ -57,7 +57,7 @@ services:
     command: periodic_upload
 
   www:
-    env_file: ./.env
+    env_file: ${CONFIG_ENV:-"./.env"}
     build: ./nginx
     container_name: "mediawiki-www"
     environment:
