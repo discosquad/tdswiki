@@ -1,4 +1,4 @@
-FROM ghcr.io/chiefy/alpine-mediawiki:latest
+FROM ghcr.io/chiefy/alpine-mediawiki:1.34.4
 
 ENV \
     EXT_DIR=/var/www/mediawiki/extensions\
