@@ -5,12 +5,11 @@ services:
   db:
     env_file: ${CONFIG_ENV:-"./.env"}
     container_name: mediawiki-db
-    command: >-
-      /bin/bash -c 
-      "while [[ ! -f /docker-entrypoint-initdb.d/latest.sql ]]; do
-      echo 'Waiting for database bootstrap...'; sleep 5; done &&
-      /entrypoint.sh mysqld"
+    command: |
+      /bin/bash -c "while [[ ! -f /docker-entrypoint-initdb.d/latest.sql ]]; do echo 'Waiting for database bootstrap...'; sleep 5; done && /entrypoint.sh mysqld"
     entrypoint: ""
+    ports:
+      - "3306:3306"
     image: mysql:5.7-debian
     restart: always
     volumes:
@@ -25,9 +24,8 @@ services:
     env_file: ${CONFIG_ENV:-"./.env"}
     image: quay.io/chiefy/alpine-awscli
     entrypoint: /bin/ash
-    command: >-
-      -c "aws s3 cp s3://tds-wiki/backup/2019-07-22-120000.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz 
-      && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"
+    command: |
+      -c "aws s3 cp s3://tds-wiki/backup/2019-07-22-120000.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
@@ -35,7 +33,7 @@ services:
     env_file: ${CONFIG_ENV:-"./.env"}
     build: ./mediawiki
     container_name: mediawiki-php
-    depends_on: 
+    depends_on:
       - db
     restart: always
     volumes:
@@ -76,8 +74,9 @@ services:
 
 volumes:
   wikiwww:
-  s3images: 
+  s3images:
   dbrestore:
+
 
 networks:
   default:
