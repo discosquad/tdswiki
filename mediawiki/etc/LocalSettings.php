@@ -19,7 +19,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 # $wgDisableOutputCompression = true;
 
 $wgSitename = getenv("WIKI_NAME");
-$wgOverrideHostname = "wiki.discosquad.com";
+$wgOverrideHostname = getenv("WIKI_HOST");
 $wgMetaNamespace = "tds";
 
 ## The URL base path to the directory containing the wiki;
@@ -66,9 +66,6 @@ $wgDBprefix = "mw_";
 # MySQL table options to use during installation or update
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 
-# Experimental charset support for MySQL 5.0.
-$wgDBmysql5 = false;
-
 ## Shared memory settings
 $wgMainCacheType = CACHE_NONE;
 $wgMemCachedServers = [];
@@ -80,7 +77,7 @@ $wgEnableUploads = true;
 #$wgImageMagickConvertCommand = "/usr/bin/convert";
 
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
-$wgUseInstantCommons = false;
+$wgUseInstantCommons = true;
 
 ## If you use ImageMagick (or any other shell command) on a
 ## Linux server, this will need to be set to the name of an
@@ -115,16 +112,15 @@ $wgRightsIcon = "";
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
 
-## Default skin: you can change the default skin. Use the internal symbolic
-## names, ie 'vector', 'monobook':
-$wgDefaultSkin = "vector";
-
-# Enabled skins.
-# The following skins were automatically enabled:
-#wfLoadSkin( 'CologneBlue' );
-#wfLoadSkin( 'Modern' );
-#wfLoadSkin( 'MonoBook' );
-wfLoadSkin( 'Vector' );
+wfLoadSkin( 'Timeless' );
+$wgDefaultSkin = 'timeless';
+$wgTimelessLogo = [
+	'1x' => $wgLogo,
+	'1.5x' => $wgLogo,
+	'2x' => $wgLogo,
+	'width' => 300,
+	'height' => 287
+];
 
 # Handle this via crond
 $wgRunJobsAsync = false;
@@ -133,25 +129,28 @@ $wgJobRunRate = 0;
 # End of automatically generated settings.
 # Add more configuration options below.
 $wgMaxShellMemory = 512000;
+$wgMaxImageArea = 4.9e7;
 
 #$wgDebugLogFile = "/var/log/mediawiki.log";
 
-wfLoadExtension('MobileFrontend');
-$wgMFAutodetectMobileView = true;
-$wgMFDefaultSkinClass = 'SkinVector';
+#$GLOBALS['egMapsDefaultService'] = 'openlayers';
+
+$wgShowExceptionDetails = true; 
+
+wfLoadExtension( 'MultimediaViewer' );
+wfLoadExtension( 'YouTube' );
+wfLoadExtension( 'ArticleRatings' );
+wfLoadExtension( 'CategoryTree' );
+wfLoadExtension( 'Collection' );
 
 wfLoadExtension('RandomImage');
 $wgRandomImageNoCache = true;
 
-wfLoadExtension('MultimediaViewer');
-
-wfLoadExtension('YouTube');
-
 wfLoadExtension('ParserFunctions');
 $wgPFEnableStringFunctions = true;
 
-wfLoadExtension('CategoryTree');
+wfLoadExtension( 'MobileFrontend' );
+$wgMFAutodetectMobileView = true;
+$wgMFDefaultSkinClass = 'SkinVector';
 
-wfLoadExtension('MsUpload');
-
-$GLOBALS['egMapsDefaultService'] = 'openlayers';
+wfLoadExtension( 'MP3MediaHandler' );

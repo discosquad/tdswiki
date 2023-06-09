@@ -3,7 +3,7 @@
 start() {
     echo "Setting up crond, starting php-fpm..."
     crond -d 3
-    php-fpm7 -F
+    php-fpm82 -F
 }
 
 preStart() {
