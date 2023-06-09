@@ -63,8 +63,6 @@ services:
     env_file: ${CONFIG_ENV:-.env}
     build: ./nginx
     container_name: "mediawiki-www"
-    environment:
-      - VIRTUAL_HOST=${WIKI_HOST}
     depends_on:
       - mediawiki
     ports:
