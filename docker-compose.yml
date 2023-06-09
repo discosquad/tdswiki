@@ -1,9 +1,9 @@
-version: '3.2'
+version: '3.8'
 
 services:
 
   db:
-    env_file: ${CONFIG_ENV:-"./.env"}
+    env_file: ${CONFIG_ENV:-.env}
     container_name: mediawiki-db
     command: >-
       /bin/bash -c 
@@ -13,26 +13,41 @@ services:
     entrypoint: ""
     image: mysql:5.7-debian
     restart: always
+#    ports:
+#     - "3306:3306"
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
   dbbackup:
-    env_file: ${CONFIG_ENV:-"./.env"}
+    env_file: ${CONFIG_ENV:-.env}
     image: schickling/mysql-backup-s3:latest
     restart: always
 
   dbrestore:
-    env_file: ${CONFIG_ENV:-"./.env"}
+    env_file: ${CONFIG_ENV:-.env}
     image: quay.io/chiefy/alpine-awscli
     entrypoint: /bin/ash
     command: >-
-      -c "aws s3 cp s3://tds-wiki/backup/2019-07-22-120000.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz 
+      -c "aws s3 cp s3://tds-wiki/backup/lkg.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz 
       && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"
     volumes:
       - "dbrestore:/docker-entrypoint-initdb.d"
 
+  s3sync:
+    env_file: ${CONFIG_ENV:-.env}
+    build: ./s3sync
+    restart: always
+    environment:
+      - SYNCDIR=/var/www/mediawiki/images
+      - INITIAL_DOWNLOAD=force
+    volumes:
+      - type: volume
+        source: s3images
+        target: /var/www/mediawiki/images
+    command: periodic_upload
+
   mediawiki:
-    env_file: ${CONFIG_ENV:-"./.env"}
+    env_file: ${CONFIG_ENV:-.env}
     build: ./mediawiki
     container_name: mediawiki-php
     depends_on: 
@@ -44,20 +59,8 @@ services:
         source: s3images
         target: /var/www/mediawiki/images
 
-  s3sync:
-    env_file: ${CONFIG_ENV:-"./.env"}
-    build: ./s3sync
-    restart: always
-    environment:
-      - SYNCDIR=/var/www/mediawiki/images
-    volumes:
-      - type: volume
-        source: s3images
-        target: /var/www/mediawiki/images
-    command: periodic_upload
-
   www:
-    env_file: ${CONFIG_ENV:-"./.env"}
+    env_file: ${CONFIG_ENV:-.env}
     build: ./nginx
     container_name: "mediawiki-www"
     environment:

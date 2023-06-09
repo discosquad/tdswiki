@@ -1,7 +1,8 @@
-FROM ghcr.io/chiefy/alpine-mediawiki:1.34.4
+FROM ghcr.io/chiefy/alpine-mediawiki:latest
 
 ENV \
     EXT_DIR=/var/www/mediawiki/extensions\
+    SKIN_DIR=/var/www/mediawiki/skins\
     PHP_FPM_PORT=9000
 
 USER root
@@ -14,15 +15,12 @@ RUN \
     bash \
     curl \
     openssl \
-    ca-certificates \
-    php-tokenizer \
-    php-simplexml \
-    php-calendar \
-    php-xmlwriter \
+    php82-tokenizer \
+    php82-simplexml \
+    php82-calendar \
+    php82-xmlwriter \
     && touch /var/log/mediawiki.log \
     && chown www /var/log/mediawiki.log \
-    # Install Maps extension w/ composer
-    && composer require -d /var/www/mediawiki -vvv -n mediawiki/maps "*" \
     && chown -R www:nogroup ${EXT_DIR}
 
 USER www
@@ -30,13 +28,10 @@ USER www
 COPY bin/install_extensions.sh /var/www/mediawiki
 COPY etc/LocalSettings.php /var/www/mediawiki
 COPY bin/manage.sh /usr/local/bin/manage.sh
-COPY skins/components/common.less /var/www/mediawiki/skins/Vector/components/common.less
 
 RUN /var/www/mediawiki/install_extensions.sh \
     && rm -rf /var/www/mediawiki/install_extensions.sh \
     && rm -rf /var/www/mediawiki/images/*
-
-USER root
 
 ENTRYPOINT [ "/usr/local/bin/manage.sh" ]
 
