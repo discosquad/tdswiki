@@ -62,7 +62,7 @@ services:
   www:
     env_file: ${CONFIG_ENV:-.env}
     build: ./nginx
-    container_name: "mediawiki-www"
+    container_name: mediawiki-www
     depends_on:
       - mediawiki
     ports:
