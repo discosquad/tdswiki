@@ -133,8 +133,6 @@ $wgMaxImageArea = 4.9e7;
 
 #$wgDebugLogFile = "/var/log/mediawiki.log";
 
-#$GLOBALS['egMapsDefaultService'] = 'openlayers';
-
 $wgShowExceptionDetails = true; 
 
 wfLoadExtension( 'MultimediaViewer' );
@@ -154,3 +152,7 @@ $wgMFAutodetectMobileView = true;
 $wgMFDefaultSkinClass = 'SkinVector';
 
 wfLoadExtension( 'MP3MediaHandler' );
+
+wfLoadExtension( 'Mailgun' );
+$wgMailgunAPIKey = getenv("MAILGUN_APIKEY");
+$wgMailgunDomain = getenv("MAILGUN_DOMAIN");

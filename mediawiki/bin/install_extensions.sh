@@ -24,6 +24,7 @@ extensions=(
   https://extdist.wmflabs.org/dist/extensions/SelectCategory-REL1_39-855d37f.tar.gz
   https://extdist.wmflabs.org/dist/extensions/TopTenPages-REL1_39-249f352.tar.gz
   https://extdist.wmflabs.org/dist/extensions/YouTube-REL1_39-28a05a9.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/Mailgun-REL1_39-2ec2c28.tar.gz
 )
 
 for ext_url in ${extensions[@]}; do
