@@ -46,6 +46,8 @@ $wgLogo = "$wgResourceBasePath/images/wikilogo.png";
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
 
+$wgGroupPermissions['*']['edit'] = false;
+
 $wgEmergencyContact = "chief@beefdisciple.com";
 $wgPasswordSender = "noreply@beefdisciple.com";
 
@@ -153,6 +155,6 @@ $wgMFDefaultSkinClass = 'SkinVector';
 
 wfLoadExtension( 'MP3MediaHandler' );
 
-wfLoadExtension( 'Mailgun' );
-$wgMailgunAPIKey = getenv("MAILGUN_APIKEY");
-$wgMailgunDomain = getenv("MAILGUN_DOMAIN");
+#$wgMailgunAPIKey = getenv("MAILGUN_APIKEY");
+#$wgMailgunDomain = getenv("MAILGUN_DOMAIN");
+#wfLoadExtension( 'Mailgun' );
