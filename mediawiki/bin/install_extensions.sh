@@ -7,17 +7,17 @@ set -e
 
 skins=(
 #  https://extdist.wmflabs.org/dist/skins/MinervaNeue-REL1_39-7198fd1.tar.gz
-  https://extdist.wmflabs.org/dist/skins/Timeless-REL1_39-16f488a.tar.gz
+  https://extdist.wmflabs.org/dist/skins/Timeless-REL1_39-6c87a4c.tar.gz
 )
 
 extensions=(
   https://extdist.wmflabs.org/dist/extensions/ArticleRatings-REL1_39-b537c5c.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/CategoryTree-REL1_39-63ec336.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/Collection-REL1_39-7294789.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/CategoryTree-REL1_39-393b05a.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/Collection-REL1_39-67d431b.tar.gz
   https://extdist.wmflabs.org/dist/extensions/DidYouKnow-REL1_39-3cf57c8.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_39-30d5001.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_39-cb0009c.tar.gz
   https://extdist.wmflabs.org/dist/extensions/MP3MediaHandler-REL1_39-3066c8e.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_39-3eb1eb9.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_39-212a91e.tar.gz
   https://extdist.wmflabs.org/dist/extensions/RandomImage-REL1_39-a3cccf7.tar.gz
   https://extdist.wmflabs.org/dist/extensions/RandomImageByCategory-REL1_39-f731ed8.tar.gz
   https://extdist.wmflabs.org/dist/extensions/RelatedArticles-REL1_39-231da5f.tar.gz
