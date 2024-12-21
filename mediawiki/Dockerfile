@@ -14,11 +14,12 @@ RUN \
     && apk add \
     bash \
     curl \
+    git \
     openssl \
-    php82-tokenizer \
-    php82-simplexml \
-    php82-calendar \
-    php82-xmlwriter \
+    php84-tokenizer \
+    php84-simplexml \
+    php84-calendar \
+    php84-xmlwriter \
     && touch /var/log/mediawiki.log \
     && chown www /var/log/mediawiki.log \
     && chown -R www:nogroup ${EXT_DIR}

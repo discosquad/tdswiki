@@ -11,7 +11,7 @@
 # https://www.mediawiki.org/wiki/Manual:Configuration_settings
 
 # Protect against web entry
-if ( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined('MEDIAWIKI') ) {
 	exit;
 }
 
@@ -119,7 +119,11 @@ $wgRightsIcon = "";
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
 
-wfLoadSkin( 'Timeless' );
+wfLoadSkin('Timeless');
+wfLoadSkin('Vector');
+wfLoadSkin('MinervaNeue');
+
+
 $wgDefaultSkin = 'timeless';
 $wgTimelessLogo = [
 	'1x' => $wgLogo,
@@ -142,11 +146,11 @@ $wgMaxImageArea = 4.9e7;
 
 $wgShowExceptionDetails = true; 
 
-wfLoadExtension( 'MultimediaViewer' );
-wfLoadExtension( 'YouTube' );
-wfLoadExtension( 'ArticleRatings' );
-wfLoadExtension( 'CategoryTree' );
-wfLoadExtension( 'Collection' );
+wfLoadExtension('MultimediaViewer');
+wfLoadExtension('YouTube');
+wfLoadExtension('ArticleRatings');
+wfLoadExtension('CategoryTree');
+wfLoadExtension('Collection');
 
 wfLoadExtension('RandomImage');
 $wgRandomImageNoCache = true;
@@ -154,12 +158,12 @@ $wgRandomImageNoCache = true;
 wfLoadExtension('ParserFunctions');
 $wgPFEnableStringFunctions = true;
 
-wfLoadExtension( 'MobileFrontend' );
+wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
 $wgMFDefaultSkinClass = 'SkinVector';
 
-wfLoadExtension( 'MP3MediaHandler' );
+wfLoadExtension('MP3MediaHandler');
 
 #$wgMailgunAPIKey = getenv("MAILGUN_APIKEY");
 #$wgMailgunDomain = getenv("MAILGUN_DOMAIN");
-#wfLoadExtension( 'Mailgun' );
+#wfLoadExtension('Mailgun');

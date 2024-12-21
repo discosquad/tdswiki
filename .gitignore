@@ -3,3 +3,4 @@ common.env
 .env
 data
 s3images
+.vscode/settings.json

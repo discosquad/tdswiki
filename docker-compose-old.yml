@@ -33,8 +33,8 @@ services:
 
   s3sync:
     env_file: ${CONFIG_ENV:-.env}
-    image: vladgh/s3sync:latest
-    restart: on-failure
+    build: ./s3sync
+    restart: always
     environment:
       - SYNCDIR=/var/www/mediawiki/images
       - INITIAL_DOWNLOAD=force
@@ -46,7 +46,7 @@ services:
 
   mediawiki:
     env_file: ${CONFIG_ENV:-.env}
-    image: ghcr.io/chiefy/tdswiki:latest
+    build: ./mediawiki
     container_name: mediawiki-php
     depends_on:
       - db
