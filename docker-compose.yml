@@ -23,8 +23,8 @@ services:
 
   dbrestore:
     env_file: ${CONFIG_ENV:-.env}
-    image: quay.io/chiefy/alpine-awscli
-    entrypoint: /bin/ash
+    image: ghcr.io/chiefy/aws-cli
+    entrypoint: /bin/bash
     command: >-
       -c "aws s3 cp s3://tds-wiki/backup/lkg.sql.gz /docker-entrypoint-initdb.d/latest.sql.gz
       && gunzip /docker-entrypoint-initdb.d/latest.sql.gz"

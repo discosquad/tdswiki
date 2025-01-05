@@ -1,0 +1,19 @@
+services:
+  s3sync:
+    env_file: ${CONFIG_ENV:-.env}
+    build: ./s3sync
+    restart: on-failure
+    environment:
+      - SYNCDIR=/var/www/mediawiki/images
+    #      - INITIAL_DOWNLOAD=force
+    volumes:
+      - type: volume
+        source: s3images
+        target: /var/www/mediawiki/images
+    command: periodic_upload
+
+volumes:
+  s3images:
+
+networks:
+  default:

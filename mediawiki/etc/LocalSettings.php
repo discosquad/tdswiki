@@ -164,6 +164,8 @@ $wgMFDefaultSkinClass = 'SkinVector';
 
 wfLoadExtension('MP3MediaHandler');
 
+wfLoadExtension('Maps');
+
 #$wgMailgunAPIKey = getenv("MAILGUN_APIKEY");
 #$wgMailgunDomain = getenv("MAILGUN_DOMAIN");
 #wfLoadExtension('Mailgun');

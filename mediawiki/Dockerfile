@@ -34,6 +34,11 @@ RUN /var/www/mediawiki/install_extensions.sh \
     && rm -rf /var/www/mediawiki/install_extensions.sh \
     && rm -rf /var/www/mediawiki/images/*
 
+# Install Extension:Maps
+RUN composer update \
+    && composer require --no-update mediawiki/maps:~7.0 \
+    && composer update mediawiki/maps --no-dev -o
+
 ENTRYPOINT [ "/usr/local/bin/manage.sh" ]
 
 CMD [ "preStart" ]

@@ -1,6 +1,13 @@
-FROM vladgh/s3sync:latest 
-RUN \
-    adduser -S -D -H -u 100 www \
-    && chown -R www:root /etc/crontabs \
-    && chmod 664 /etc/crontabs/*
+FROM ghcr.io/chiefy/debian-supercronic:latest
+
+COPY entrypoint.sh /
+
+RUN apt update -y \
+    && apt install -y awscli \
+    && adduser --system --no-create-home --uid 100 --gid 100 www \
+    && echo "@hourly /entrypoint.sh upload" > /etc/crontab \
+    && chown www:users /etc/crontab
+
 USER www
+
+ENTRYPOINT [ "/entrypoint.sh" ]

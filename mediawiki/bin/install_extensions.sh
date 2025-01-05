@@ -6,20 +6,20 @@ set -e
 : ${SKIN_DIR:-skins}
 
 skins=(
-  https://extdist.wmflabs.org/dist/skins/Vector-REL1_42-9960eae.tar.gz
-  https://extdist.wmflabs.org/dist/skins/MinervaNeue-REL1_42-33dbe54.tar.gz
+  https://extdist.wmflabs.org/dist/skins/Vector-REL1_42-9483c04.tar.gz
+  https://extdist.wmflabs.org/dist/skins/MinervaNeue-REL1_42-24d5c6b.tar.gz
 )
 
 extensions=(
   https://extdist.wmflabs.org/dist/extensions/ArticleRatings-REL1_42-bd2ea7c.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/Collection-REL1_42-6350d5b.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/Collection-REL1_42-6e2f870.tar.gz
   https://extdist.wmflabs.org/dist/extensions/DidYouKnow-REL1_42-5a1c034.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_42-a8aeecc.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_42-03fed6b.tar.gz
   https://extdist.wmflabs.org/dist/extensions/MP3MediaHandler-REL1_42-8604199.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_42-c1dfee2.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/ParserFunctions-REL1_42-8b67321.tar.gz
   https://extdist.wmflabs.org/dist/extensions/RandomImage-REL1_42-3424e73.tar.gz
   https://extdist.wmflabs.org/dist/extensions/RandomImageByCategory-REL1_42-f7efd7f.tar.gz
-  https://extdist.wmflabs.org/dist/extensions/RelatedArticles-REL1_42-c7fa4b1.tar.gz
+  https://extdist.wmflabs.org/dist/extensions/RelatedArticles-REL1_42-95514d7.tar.gz
   https://extdist.wmflabs.org/dist/extensions/SelectCategory-REL1_42-ff6ee45.tar.gz
   https://extdist.wmflabs.org/dist/extensions/TopTenPages-REL1_42-8fefdcb.tar.gz
   https://extdist.wmflabs.org/dist/extensions/YouTube-REL1_42-91c97ca.tar.gz
